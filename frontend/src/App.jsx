@@ -1,15 +1,15 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { Routes, Route, Link } from 'react-router-dom'
+import Home from "./pages/home";
+import Landing from './pages/landing';
+import Create from './pages/Create';
 
-function App() {
+
+export default function App() {
   return (
-    <div className="bg-red-400">
-      <div className="bg-red-400">
-        hello
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/create" element={<Create />}  />
+    </Routes>
   );
 }
-
-export default App;
