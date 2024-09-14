@@ -74,8 +74,8 @@ class Followers(db.Model):
     follower_id = db.Column(db.String(80), unique=False, nullable=False)
     timeCreated = db.Column(db.DateTime, server_default=db.func.now())
 
-    user = relationship('User', foreign_keys=[user_id])
-    follower = relationship('User', foreign_keys=[follower_id])
+    user = relationship('User', foreign_keys=[user_id], backref='followers')
+    follower = relationship('User', foreign_keys=[follower_id], backref='following')
 
     def to_json(self):
         return {

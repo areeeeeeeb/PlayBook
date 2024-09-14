@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from config import app, db
-from models import Contact, Event, User, Comments, Followers, School
+from models import Contact, Event, User, Comments, Followers
 from datetime import datetime
 
 @app.route("/contacts", methods=["GET"])
@@ -63,7 +63,7 @@ def delete_contact(user_id):
 
 
 # Event API
-@app.route("/api/events/<int:event_id>", method=["GET"])
+@app.route("/api/events/<int:event_id>", methods=["GET"])
 def get_event(event_id):
     event = Event.query.get(event_id)
 
@@ -73,7 +73,7 @@ def get_event(event_id):
     return jsonify({"event": event})
 
 
-@app.route("/api/events/<int:event_id>", method=["POST"])
+@app.route("/api/events/<int:event_id>", methods=["POST"])
 def create_event():
     id =  request.json.get("id")
     title = request.json.get("title")
@@ -101,7 +101,7 @@ def create_event():
 
 
 
-@app.route("/api/events/<int:event_id>", method=["DELETE"])
+@app.route("/api/events/<int:event_id>", methods=["DELETE"])
 def delete_event(event_id):
     event = Event.query.get(event_id)
 
@@ -115,7 +115,7 @@ def delete_event(event_id):
 
 #Users API
 
-@app.route("/api/users/<int:user_id>", method=["GET"])
+@app.route("/api/users/<int:user_id>", methods=["GET"])
 
 def get_user(user_id):
     user = User.query.get(user_id)
@@ -125,7 +125,7 @@ def get_user(user_id):
     
     return jsonify({"user": user})
 
-@app.route("/api/users", method=["POST"])
+@app.route("/api/users", methods=["POST"])
 
 def create_user():
     id =  request.json.get("user_id")
@@ -152,7 +152,7 @@ def create_user():
 
     return jsonify({"message": "User created!"}), 201
 
-@app.route("/api/users/<int:user_id>", method=["DELETE"])
+@app.route("/api/users/<int:user_id>", methods=["DELETE"])
 
 def delete_user(user_id):
     user = User.query.get(user_id)
@@ -165,7 +165,7 @@ def delete_user(user_id):
 
     return jsonify({"message": "User deleted!"}), 200
 
-@app.route("/api/users/<int:user_id>", method=["PATCH"])
+@app.route("/api/users/<int:user_id>", methods=["PATCH"])
 
 def modify_user(user_id):
     user = User.query.get(user_id)
@@ -187,7 +187,7 @@ def modify_user(user_id):
 
 # Comments API
 
-@app.route("/api/comments/<int:comment_id>", method=["POST"])
+@app.route("/api/comments/<int:comment_id>", methods=["POST"])
 
 def create_comment(comment_id):
     id =  request.json.get("id")
@@ -211,7 +211,7 @@ def create_comment(comment_id):
 
     return jsonify({"message": "Created Comment!"}), 201
 
-@app.route("/api/comments/<int:comment_id>", method=["DELETE"])
+@app.route("/api/comments/<int:comment_id>", methods=["DELETE"])
 
 def delete_comment(comment_id):
     comment = Comments.query.get(comment_id)
@@ -224,7 +224,7 @@ def delete_comment(comment_id):
 
     return jsonify({"message": "Comment deleted!"}), 200
 
-@app.route("/api/comments/<int:comment_id>", method=["PATCH"])
+@app.route("/api/comments/<int:comment_id>", methods=["PATCH"])
 
 def edit_comment(comment_id):
     comment = Comments.query.get(comment_id)
@@ -239,7 +239,7 @@ def edit_comment(comment_id):
 
     return jsonify({"message": "Comment updated."}), 200
 
-@app.route("/api/comments/<int:comment_id>", method=["GET"])
+@app.route("/api/comments/<int:comment_id>", methods=["GET"])
 
 def get_comment(comment_id):
     comment = Comments.query.get(comment_id)
@@ -251,7 +251,7 @@ def get_comment(comment_id):
 
 # Followers API
 
-@app.route("/api/followers/<int:follower_id>", method=["POST"])
+@app.route("/api/followers/<int:follower_id>", methods=["POST"])
 
 def follow(user_id, follower_id):
     # Check if this follow relationship already exists
@@ -269,7 +269,7 @@ def follow(user_id, follower_id):
 
     return "Followed successfully!"
 
-@app.route("/api/followers/<int:follower_id>", method=["DELETE"])
+@app.route("/api/followers/<int:follower_id>", methods=["DELETE"])
 
 def unfollow(user_id, follower_id):
     # Find the follow relationship
@@ -284,13 +284,16 @@ def unfollow(user_id, follower_id):
 
     return "Unfollowed successfully!"
 
-@app.route("/api/followers/<int:follower_id>", method=["GET"])
-
-def get_followers(follower_id):
-    followers = Followers.query.filter_by(follower_id=follower_id).all()
-
-    return jsonify({"followers": followers})
-
+@app.route("/api/users/<string:user_id>/followers", methods=["GET"])
+def get_user_followers(user_id):
+    followers = Followers.query.filter_by(user_id=user_id).all()
+    
+    if not followers:
+        return {"message": "This user has no followers."}, 404
+    
+    return {
+        "followers": [{"follower_id": follower.follower_id, "timeCreated": follower.timeCreated} for follower in followers]
+    }
 
 if __name__ == "__main__":
     with app.app_context():
