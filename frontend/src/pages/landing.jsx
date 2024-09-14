@@ -1,22 +1,25 @@
-import { Routes, Route, Link } from "react-router-dom";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+
+const LoginPage = () => {
+  // Placeholder for LoginPage component
+  return null;
+};
 
 export default function Landing() {
   const navigate = useNavigate();
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     const data = {
       name,
       email,
       password,
     };
+    console.log(data);
     const url = "http://127.0.0.1:5000/api/users/";
     const options = {
       method: "POST",
@@ -30,72 +33,75 @@ export default function Landing() {
       const data = await response.json();
       alert(data.message);
     }
+    navigate("/home");
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 text-white">
-      <h1 className="text-3xl font-bold italic">PLAY HARD,</h1>
-      <h1 className="text-3xl font-bold italic">BOOK HARD (?)</h1>
-      <form className="space-y-2" onSubmit={onSubmit}>
-        <div className="">
-          <label
-            htmlFor="fullName"
-            className="block text-sm font-medium text-white/40 mb-1"
+    <>
+      <LoginPage />
+      <div className="max-w-md mx-auto mt-10 p-6 text-white">
+        <h1 className="text-3xl font-bold italic">PLAY HARD,</h1>
+        <h1 className="text-3xl font-bold italic">BOOK HARD (?)</h1>
+        <form className="space-y-2 text-black" onSubmit={onSubmit}>
+          <div className="">
+            <label
+              htmlFor="fullName"
+              className="block text-sm font-medium text-white/40 mb-1"
+            >
+              Full name
+            </label>
+            <input
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              id="fullName"
+              placeholder="Enter your name"
+              className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <div className="">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-white/40 mb-1"
+            >
+              Email
+            </label>
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              id="emailOrPhone"
+              placeholder="Type your e-mail or phone number"
+              className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <div className="">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-white/40 mb-1"
+            >
+              Password
+            </label>
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              id="password"
+              placeholder="Type your password"
+              className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-black text-white py-2 px-4 rounded-md bg-indigo-500 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
           >
-            Full name
-          </label>
-          <input
-            type="text"
-            id="fullName"
-            placeholder="Enter your name"
-            className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-
-        <div className="">
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Email
-          </label>
-          <input
-            type="text"
-            id="emailOrPhone"
-            placeholder="Type your e-mail or phone number"
-            className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-
-        <div className="">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Type your password"
-            className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-black text-white py-2 px-4 rounded-md bg-indigo-500 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
-          onClick={() => navigate("/home")}
-        >
-          Sign Up
-        </button>
-      </form>
-
-      <p className="mt-4 text-sm text-center text-gray-600">
-        Already have an account?{" "}
-        <a href="#" className="text-blue-600 hover:underline">
-          Sign In
-        </a>
-      </p>
-    </div>
+            Sign Up
+          </button>
+        </form>
+        <p className="mt-4 text-sm text-center text-gray-600">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-600 hover:underline">
+            Sign In
+          </Link>
+        </p>
+      </div>
+    </>
   );
 }

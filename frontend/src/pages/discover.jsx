@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const EventWidget = ({ time, emoji, title, organizer, headline }) => {
+const EventWidget = ({ time, emoji, title, organizer, description }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
   return (
     <>
         <div
@@ -18,9 +17,9 @@ const EventWidget = ({ time, emoji, title, organizer, headline }) => {
             </div>
             </div>
             <div className="grow shrink flex-col justify-center items-left inline-flex">
-            <div className="text-lg font-bold">{title.toUpperCase()}</div>
-            <div className="text-sm">{time}</div>
-            <div className="text-white/40 text-xs font-normal">{organizer}</div>
+                    <div className="text-lg font-bold">{title.toUpperCase()}</div>
+                    <div className="text-sm">{time}</div>
+                    <div className="text-white/40 text-xs font-normal">{organizer}</div>
             </div>
         </div>
 
@@ -39,64 +38,40 @@ const EventWidget = ({ time, emoji, title, organizer, headline }) => {
                 </button>
             </div>
             <p className="text-lg mb-2 text-white">{time}</p>
-            <p className="text-xl mb-4 text-white">{headline}</p>
+            <p className="text-xl mb-4 text-white">{description}</p>
             <p className="text-sm text-white/40">{organizer}</p>
         </div>
     </>
   );
 };
 
-const events = [
-  {
-    time: "Fri, 20 Sept, 10:00 pm",
-    emoji: "🍕",
-    title: "Pizza Party!",
-    headline: "Join us for free pizza in the Student Center!",
-    organizer: "@StudentUnion",
-  },
-  {
-    time: "Sun, 3 Nov, 8:00 pm",
-    emoji: "🎸",
-    title: "Guitar Workshop",
-    headline: "Learn to play guitar with our expert instructor!",
-    organizer: "@MusicClub",
-  },
-  {
-    time: "Fri, 29 Nov, 7:00 pm",
-    emoji: "⚽️",
-    title: "Soccer Game",
-    headline: "Cheer on our team as they take on the rivals!",
-    organizer: "@SportsTeam",
-  },
-  {
-    time: "Sat, 14 Sept, 10:00 pm",
-    emoji: "🎭",
-    title: "Theater Performance",
-    headline: "Enjoy a night of live theater in the Drama Building!",
-    organizer: "@DramaDepartment",
-  },
-  {
-    time: "Sat, 5 Oct, 10:00 pm",
-    emoji: "🎥",
-    title: "Movie Night",
-    headline: "Relax and watch a movie with friends in the Film Lounge!",
-    organizer: "@FilmSociety",
-  },
-];
 
 export default function Discover() {
+
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        fetchEvents();
+    }, []);
+
+    const fetchEvents = async () => {
+        const response = await fetch("http://127.0.0.1:5000/api/events");
+        const data = await response.json();
+        setEvents(data.events);
+    };
+
   return (
     <div className="p-4 text-white items-center justify-start hide-overflow">
       <h1 className="text-3xl mb-4">EVENTS</h1>
       <div className="rounded-xl">
         {events.map((event, index) => (
           <EventWidget
-            key={index}
+            key={event.id}
             time={event.time}
             emoji={event.emoji}
             title={event.title}
-            headline={event.headline}
-            organizer={event.organizer}
+            description={event.description}
+            organizer={event.user_id}
           />
         ))}
       </div>
