@@ -1,6 +1,7 @@
 from config import db
 from werkzeug.security import generate_password_hash
 from sqlalchemy.orm import relationship
+import base64
 
 class Contact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -25,7 +26,7 @@ class User(db.Model):
     first_name = db.Column(db.String(80), unique=False, nullable=False)
     last_name = db.Column(db.String(80), unique=False, nullable=False)
     creation_date = db.Column(db.DateTime, server_default=db.func.now())
-    image = db.Column(db.String(120), unique=False, nullable=True)
+    image = db.Column(db.LargeBinary, nullable=True)
     userClass = db.Column(db.String(80), unique=False, nullable=True)
 
     def set_password(self, password):
@@ -41,19 +42,20 @@ class User(db.Model):
             "first_name": self.first_name,
             "last_name": self.last_name,
             "creation_date": self.creation_date,
-            "image": self.image,
+            "image": base64.b64encode(self.image).decode('utf-8') if self.image else None,
             "userClass": self.userClass
         }
     
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.String(80), unique=False, nullable=False)
+    user_id = db.Column(db.Integer, unique=True, nullable=False)
     title = db.Column(db.String(80), unique=False, nullable=False)
     description = db.Column(db.String(80), unique=False, nullable=False)
     location = db.Column(db.String(80), unique=False, nullable=False)
     startTime = db.Column(db.String(80), unique=False, nullable=False)
     endTime = db.Column(db.String(80), unique=False, nullable=False)
-    timeCreated= db.Column(db.DateTime, server_default=db.func.now())
+    timeCreated = db.Column(db.DateTime, server_default=db.func.now())
+    image = db.Column(db.LargeBinary, nullable=True)
 
     def to_json(self):
         return {
@@ -65,6 +67,7 @@ class Event(db.Model):
             "startTime": self.startTime,
             "endTime": self.endTime,
             "timeCreated": self.timeCreated,
+            "image": base64.b64encode(self.image).decode('utf-8') if self.image else None,
         }
     
 
@@ -77,7 +80,7 @@ class Followers(db.Model):
     user = relationship('User', foreign_keys=[user_id], backref='followers')
     follower = relationship('User', foreign_keys=[follower_id], backref='following')
 
-    def to_json(self):
+    def to_json(self):  
         return {
             "id": self.id,
             "userID": self.user_id,
@@ -87,8 +90,8 @@ class Followers(db.Model):
 
 class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.String(80), unique=False, nullable=False)
-    event_id = db.Column(db.String(80), unique=False, nullable=False)
+    user_id = db.Column(db.Integer, unique=False, nullable=False)
+    event_id = db.Column(db.Integer, unique=False, nullable=False)
     comment = db.Column(db.String(80), unique=False, nullable=False)
     timeCreated = db.Column(db.DateTime, server_default=db.func.now())
 
