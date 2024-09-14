@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from config import app, db
-from models import Contact, Event
+from models import Contact, Event, User, Comments, Followers, School
 from datetime import datetime
 
 @app.route("/contacts", methods=["GET"])
@@ -112,6 +112,184 @@ def delete_event(event_id):
     db.session.commit()
 
     return jsonify({"message": "Event deleted!"}), 200
+
+#Users API
+
+@app.route("/api/users/<int:user_id>", method=["GET"])
+
+def get_user(user_id):
+    user = User.query.get(user_id)
+
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+    
+    return jsonify({"user": user})
+
+@app.route("/api/users", method=["POST"])
+
+def create_user():
+    id =  request.json.get("user_id")
+    first_name = request.json.get("first_name")
+    last_name = request.json.get("last_name")
+    email = request.json.get("email")
+    password = request.json.get("password")
+    timeCreated = request.json.get("timeCreated")
+    image = request.json.get("image")
+    userClass = request.json.get("userClass")
+
+    if not id or not first_name and not last_name:
+        return (
+            jsonify({"message": "You must include a id and name"}),
+            400,
+        )
+    
+    new_user = User(id=id, first_name=first_name, last_name=last_name, email=email, password=password, timeCreated=timeCreated, image=image, userClass=userClass)
+    try:
+        db.session.add(new_user)
+        db.session.commit()
+    except Exception as e:
+        return jsonify({"message": str(e)}), 400
+
+    return jsonify({"message": "User created!"}), 201
+
+@app.route("/api/users/<int:user_id>", method=["DELETE"])
+
+def delete_user(user_id):
+    user = User.query.get(user_id)
+
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+    
+    db.session.delete(user)
+    db.session.commit()
+
+    return jsonify({"message": "User deleted!"}), 200
+
+@app.route("/api/users/<int:user_id>", method=["PATCH"])
+
+def modify_user(user_id):
+    user = User.query.get(user_id)
+
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+
+    data = request.json
+    user.name = data.get("name", user.name)
+    user.email = data.get("email", user.email)
+    user.password = data.get("password", user.password)
+    user.image = data.get("image", user.image)
+    
+
+    db.session.commit()
+
+    return jsonify({"message": "User updated."}), 200
+
+
+# Comments API
+
+@app.route("/api/comments/<int:comment_id>", method=["POST"])
+
+def create_comment(comment_id):
+    id =  request.json.get("id")
+    user_id = request.json.get("user_id")
+    event_id = request.json.get("event_id")
+    comment = request.json.get("comment")
+    timeCreated = request.json.get("timeCreated")
+
+    if not id or not user_id:
+        return (
+            jsonify({"message": "You must include a id and user_id"}),
+            400,
+        )
+    
+    new_comment = Comments(id=id, user_id=user_id, event_id=event_id, comment=comment, timeCreated=timeCreated)
+    try:
+        db.session.add(new_comment)
+        db.session.commit()
+    except Exception as e:
+        return jsonify({"message": str(e)}), 400
+
+    return jsonify({"message": "Created Comment!"}), 201
+
+@app.route("/api/comments/<int:comment_id>", method=["DELETE"])
+
+def delete_comment(comment_id):
+    comment = Comments.query.get(comment_id)
+
+    if not comment:
+        return jsonify({"message": "Comment not found"}), 404
+    
+    db.session.delete(comment)
+    db.session.commit()
+
+    return jsonify({"message": "Comment deleted!"}), 200
+
+@app.route("/api/comments/<int:comment_id>", method=["PATCH"])
+
+def edit_comment(comment_id):
+    comment = Comments.query.get(comment_id)
+
+    if not comment:
+        return jsonify({"message": "Comment not found"}), 404
+
+    data = request.json
+    comment.comment = data.get("comment", comment.comment)
+
+    db.session.commit()
+
+    return jsonify({"message": "Comment updated."}), 200
+
+@app.route("/api/comments/<int:comment_id>", method=["GET"])
+
+def get_comment(comment_id):
+    comment = Comments.query.get(comment_id)
+
+    if not comment:
+        return jsonify({"message": "Comment not found"}), 404
+    
+    return jsonify({"comment": comment})
+
+# Followers API
+
+@app.route("/api/followers/<int:follower_id>", method=["POST"])
+
+def follow(user_id, follower_id):
+    # Check if this follow relationship already exists
+    existing_follow = Followers.query.filter_by(user_id=user_id, follower_id=follower_id).first()
+
+    if existing_follow:
+        return "Already following this user."
+
+    # Create a new Follower instance
+    new_follow = Followers(user_id=user_id, follower_id=follower_id)
+
+    # Add to session and commit
+    db.session.add(new_follow)
+    db.session.commit()
+
+    return "Followed successfully!"
+
+@app.route("/api/followers/<int:follower_id>", method=["DELETE"])
+
+def unfollow(user_id, follower_id):
+    # Find the follow relationship
+    follow = Followers.query.filter_by(user_id=user_id, follower_id=follower_id).first()
+
+    if not follow:
+        return "You are not following this user."
+
+    # Delete the follow relationship
+    db.session.delete(follow)
+    db.session.commit()
+
+    return "Unfollowed successfully!"
+
+@app.route("/api/followers/<int:follower_id>", method=["GET"])
+
+def get_followers(follower_id):
+    followers = Followers.query.filter_by(follower_id=follower_id).all()
+
+    return jsonify({"followers": followers})
 
 
 if __name__ == "__main__":
