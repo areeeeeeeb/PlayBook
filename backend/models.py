@@ -1,58 +1,38 @@
 from config import db
-from werkzeug.security import generate_password_hash
-from sqlalchemy.orm import relationship
 
-class Contact(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(80), unique=False, nullable=False)
-    last_name = db.Column(db.String(80), unique=False, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-
-    def to_json(self):
-        return {
-            "id": self.id,
-            "firstName": self.first_name,
-            "lastName": self.last_name,
-            "email": self.email,
-        }
-    
 class User(db.Model):
     __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    uni_id = db.Column(db.String(120), unique=True, nullable=False)
+    uni_id = db.Column(db.String(120), unique=True, nullable=True)
     password = db.Column(db.String(120), unique=False, nullable=False)
-    first_name = db.Column(db.String(80), unique=False, nullable=False)
-    last_name = db.Column(db.String(80), unique=False, nullable=False)
+    name = db.Column(db.String(80), unique=False, nullable=False)
     creation_date = db.Column(db.DateTime, server_default=db.func.now())
     image = db.Column(db.String(120), unique=False, nullable=True)
     userClass = db.Column(db.String(80), unique=False, nullable=True)
 
-    def set_password(self, password):
-        self.password = generate_password_hash(password)
-
     def __repr__(self):
-        return '<User %r>' % self.email
+        return f'<User {self.email}>'
     def to_json(self):
         return {
             "user_id": self.user_id,
             "email": self.email,
             "uni_id": self.uni_id,
-            "first_name": self.first_name,
-            "last_name": self.last_name,
+            "name": self.name,
             "creation_date": self.creation_date,
             "image": self.image,
             "userClass": self.userClass
         }
-    
+
+
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(80), unique=False, nullable=False)
     title = db.Column(db.String(80), unique=False, nullable=False)
     description = db.Column(db.String(80), unique=False, nullable=False)
-    location = db.Column(db.String(80), unique=False, nullable=False)
-    startTime = db.Column(db.String(80), unique=False, nullable=False)
-    endTime = db.Column(db.String(80), unique=False, nullable=False)
+    location = db.Column(db.String(80), unique=False, nullable=True)
+    startTime = db.Column(db.String(80), unique=False, nullable=True)
+    endTime = db.Column(db.String(80), unique=False, nullable=True)
     timeCreated= db.Column(db.DateTime, server_default=db.func.now())
 
     def to_json(self):
@@ -67,15 +47,14 @@ class Event(db.Model):
             "timeCreated": self.timeCreated,
         }
     
-
-class Followers(db.Model):
+'''  
+#class Followers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(80), unique=False, nullable=False)
     follower_id = db.Column(db.String(80), unique=False, nullable=False)
     timeCreated = db.Column(db.DateTime, server_default=db.func.now())
 
     user = relationship('User', foreign_keys=[user_id])
-    follower = relationship('User', foreign_keys=[follower_id])
 
     def to_json(self):
         return {
@@ -85,7 +64,7 @@ class Followers(db.Model):
             "timeCreated": self.timeCreated,
         }
 
-class Comments(db.Model):
+#class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(80), unique=False, nullable=False)
     event_id = db.Column(db.String(80), unique=False, nullable=False)
@@ -114,3 +93,6 @@ class Comments(db.Model):
 #            "location": self.location,
 #            "image": self.image,
 #        }
+
+
+'''
