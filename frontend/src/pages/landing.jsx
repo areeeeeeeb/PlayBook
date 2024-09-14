@@ -33,14 +33,14 @@ export default function Landing() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6">
+    <div className="max-w-md mx-auto mt-10 p-6 text-white">
       <h1 className="text-3xl font-bold italic">PLAY HARD,</h1>
       <h1 className="text-3xl font-bold italic">BOOK HARD (?)</h1>
       <form className="space-y-2" onSubmit={onSubmit}>
         <div className="">
           <label
             htmlFor="fullName"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm font-medium text-white/40 mb-1"
           >
             Full name
           </label>
@@ -57,7 +57,7 @@ export default function Landing() {
             htmlFor="email"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            E-mail or phone number
+            Email
           </label>
           <input
             type="text"
@@ -83,7 +83,7 @@ export default function Landing() {
         </div>
         <button
           type="submit"
-          className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+          className="w-full bg-black text-white py-2 px-4 rounded-md bg-indigo-500 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
           onClick={() => navigate("/home")}
         >
           Sign Up
