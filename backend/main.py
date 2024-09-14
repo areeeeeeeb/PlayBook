@@ -68,7 +68,7 @@ def get_event(event_id):
     event = Event.query.get(event_id)
 
     if not event:
-        return jsonify({"message": "User not found"}), 404
+        return jsonify({"message": "Event not found"}), 404
     
     return jsonify({"event": event})
 
@@ -97,7 +97,7 @@ def create_event():
     except Exception as e:
         return jsonify({"message": str(e)}), 400
 
-    return jsonify({"message": "User created!"}), 201
+    return jsonify({"message": "Event created!"}), 201
 
 
 
@@ -106,12 +106,13 @@ def delete_event(event_id):
     event = Event.query.get(event_id)
 
     if not event:
-        return jsonify({"message": "User not found"}), 404
+        return jsonify({"message": "Event not found"}), 404
     
     db.session.delete(event)
     db.session.commit()
 
-    return jsonify({"message": "User deleted!"}), 200
+    return jsonify({"message": "Event deleted!"}), 200
+
 
 
 if __name__ == "__main__":
