@@ -1,42 +1,42 @@
-import { Routes, Route, Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
 export default function Landing() {
     const navigate = useNavigate();
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-6">
-            <h1 className="text-3xl font-bold italic">PLAY HARD,</h1>
-            <h1 className="text-3xl font-bold italic">BOOK HARD (?)</h1>
+        <div className="max-w-md  mx-auto p-6">
+            <h1 className="text-5xl font-bold italic">PLAY HARD,</h1>
+            <h1 className="text-5xl font-bold italic">BOOK HARD (?)</h1>
             <form className="space-y-2">
+
+                <div>
+                    <label className="block text-sm font-medium text-gray-700">First Name</label>
+                    <input
+                        type="text"
+                        id="firstName"
+                        placeholder="Enter your name"
+                        className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                </div>
+
                 <div className="">
-                <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">Full name</label>
-                <input
-                    type="text"
-                    id="fullName"
-                    placeholder="Enter your name"
-                    className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
+                    <label htmlFor="emailOrPhone" className="block text-sm font-medium text-gray-700 mb-1">E-mail or phone number</label>
+                    <input
+                        type="text"
+                        id="emailOrPhone"
+                        placeholder="Type your e-mail or phone number"
+                        className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
                 </div>
                 
                 <div className="">
-                <label htmlFor="emailOrPhone" className="block text-sm font-medium text-gray-700 mb-1">E-mail or phone number</label>
-                <input
-                    type="text"
-                    id="emailOrPhone"
-                    placeholder="Type your e-mail or phone number"
-                    className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                </div>
-                
-                <div className="">
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Type your password"
-                    className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
+                    <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Type your password"
+                        className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
                 </div>
                 <button
                     type="submit"
