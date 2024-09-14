@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from config import app, db
 from models import Contact
-
+from datetime import datetime
 
 @app.route("/contacts", methods=["GET"])
 def get_contacts():
