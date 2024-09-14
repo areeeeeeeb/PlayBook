@@ -114,7 +114,6 @@ def delete_event(event_id):
     return jsonify({"message": "Event deleted!"}), 200
 
 
-
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
