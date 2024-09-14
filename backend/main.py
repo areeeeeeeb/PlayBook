@@ -209,7 +209,7 @@ def create_comment(comment_id):
     except Exception as e:
         return jsonify({"message": str(e)}), 400
 
-    return jsonify({"message": "Comment created!"}), 201
+    return jsonify({"message": "Created Comment!"}), 201
 
 @app.route("/api/comments/<int:comment_id>", method=["DELETE"])
 
@@ -297,4 +297,3 @@ if __name__ == "__main__":
         db.create_all()
 
     app.run(debug=True)
-
