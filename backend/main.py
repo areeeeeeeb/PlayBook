@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from config import app, db
-from models import Contact
+from models import Contact, Event
 from datetime import datetime
 
 @app.route("/contacts", methods=["GET"])
@@ -57,6 +57,58 @@ def delete_contact(user_id):
         return jsonify({"message": "User not found"}), 404
 
     db.session.delete(contact)
+    db.session.commit()
+
+    return jsonify({"message": "User deleted!"}), 200
+
+
+# Event API
+@app.route("/api/events/<int:event_id>", method=["GET"])
+def get_event(event_id):
+    event = Event.query.get(event_id)
+
+    if not event:
+        return jsonify({"message": "User not found"}), 404
+    
+    return jsonify({"event": event})
+
+
+@app.route("/api/events/<int:event_id>", method=["POST"])
+def create_event():
+    id =  request.json.get("id")
+    title = request.json.get("title")
+    user_id = request.json.get("userID")
+    description = request.json.get("description")
+    location = request.json.get("location")
+    startTime = request.json.get("startTime")
+    endTime = request.json.get("endTime")
+    timeCreated = request.json.get("timeCreated")
+
+    if not id or not user_id:
+        return (
+            jsonify({"message": "You must include a id and user_id"}),
+            400,
+        )
+    
+    new_event = Event(id=id, title=title, user_id=user_id, description=description, location=location, startTime=startTime, endTime=endTime, timeCreated=timeCreated)
+    try:
+        db.session.add(new_event)
+        db.session.commit()
+    except Exception as e:
+        return jsonify({"message": str(e)}), 400
+
+    return jsonify({"message": "User created!"}), 201
+
+
+
+@app.route("/api/events/<int:event_id>", method=["DELETE"])
+def delete_event(event_id):
+    event = Event.query.get(event_id)
+
+    if not event:
+        return jsonify({"message": "User not found"}), 404
+    
+    db.session.delete(event)
     db.session.commit()
 
     return jsonify({"message": "User deleted!"}), 200
