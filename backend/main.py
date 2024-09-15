@@ -1,66 +1,50 @@
-from flask import request, jsonify
+from flask import request, jsonify, session
 from config import app, db
-from models import Contact, Event, User, Comments, Followers
+from models import Event, User
 from datetime import datetime
 
-@app.route("/contacts", methods=["GET"])
-def get_contacts():
-    contacts = Contact.query.all()
-    json_contacts = list(map(lambda x: x.to_json(), contacts))
-    return jsonify({"contacts": json_contacts})
+# User Auth
+@app.route('/api/login/', methods=['POST'])
+def login():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
 
+    # Query the user from the database
+    user = User.query.filter_by(email=email, password=password).first()
+    if user:
+        session['email'] = user.email
+        session['user_id'] = user.user_id
+        return jsonify({'message': 'Logged in successfully', 'user_id': user.user_id, 'name': user.name}), 200
+    else:
+        return jsonify({'message': 'Invalid credentials'}), 401
+    
+@app.route('/api/logout/', methods=['POST'])
+def logout():
+    session.pop('email', None)
+    session.pop('user_id', None)
+    return jsonify({'message': 'Logged out successfully'}), 200
 
-@app.route("/create_contact", methods=["POST"])
-def create_contact():
-    first_name = request.json.get("firstName")
-    last_name = request.json.get("lastName")
-    email = request.json.get("email")
+@app.route('/api/protected/', methods=['GET'])
+def protected():
+    if 'email' in session and 'user_id' in session:
+        return jsonify({
+            'message': f'Hello, {session["email"]}!',
+            'user_id': session['user_id']
+        }), 200
+    else:
+        return jsonify({'message': 'Not logged in'}), 401
 
-    if not first_name or not last_name or not email:
-        return (
-            jsonify({"message": "You must include a first name, last name and email"}),
-            400,
-        )
-
-    new_contact = Contact(first_name=first_name, last_name=last_name, email=email)
-    try:
-        db.session.add(new_contact)
-        db.session.commit()
-    except Exception as e:
-        return jsonify({"message": str(e)}), 400
-
-    return jsonify({"message": "User created!"}), 201
-
-
-@app.route("/update_contact/<int:user_id>", methods=["PATCH"])
-def update_contact(user_id):
-    contact = Contact.query.get(user_id)
-
-    if not contact:
-        return jsonify({"message": "User not found"}), 404
-
-    data = request.json
-    contact.first_name = data.get("firstName", contact.first_name)
-    contact.last_name = data.get("lastName", contact.last_name)
-    contact.email = data.get("email", contact.email)
-
-    db.session.commit()
-
-    return jsonify({"message": "Usr updated."}), 200
-
-
-@app.route("/delete_contact/<int:user_id>", methods=["DELETE"])
-def delete_contact(user_id):
-    contact = Contact.query.get(user_id)
-
-    if not contact:
-        return jsonify({"message": "User not found"}), 404
-
-    db.session.delete(contact)
-    db.session.commit()
-
-    return jsonify({"message": "User deleted!"}), 200
-
+@app.route('/api/current_user/', methods=['GET'])
+def current_user():
+    if 'user_id' in session:
+        user = User.query.get(session['user_id'])
+        if user:
+            return jsonify({
+                'email': user.email,
+                'user_id': user.user_id
+            }), 200
+    return jsonify({'message': 'Not logged in'}), 401
 
 # Event API
 @app.route("/api/events/<int:event_id>", methods=["GET"])
@@ -82,7 +66,6 @@ def create_event():
     location = request.json.get("location")
     startTime = request.json.get("startTime")
     endTime = request.json.get("endTime")
-    timeCreated = request.json.get("timeCreated")
 
     if not id or not user_id:
         return (
@@ -90,7 +73,7 @@ def create_event():
             400,
         )
     
-    new_event = Event(id=id, title=title, user_id=user_id, description=description, location=location, startTime=startTime, endTime=endTime, timeCreated=timeCreated)
+    new_event = Event(id=id, title=title, user_id=user_id, description=description, location=location, startTime=startTime, endTime=endTime)
     try:
         db.session.add(new_event)
         db.session.commit()
@@ -125,25 +108,22 @@ def get_user(user_id):
     
     return jsonify({"user": user})
 
-@app.route("/api/users", methods=["POST"])
-
+@app.route("/api/users/", methods=["POST"])
 def create_user():
-    id =  request.json.get("user_id")
-    first_name = request.json.get("first_name")
-    last_name = request.json.get("last_name")
+    name = request.json.get("first_name")
     email = request.json.get("email")
     password = request.json.get("password")
     timeCreated = request.json.get("timeCreated")
     image = request.json.get("image")
     userClass = request.json.get("userClass")
 
-    if not id or not first_name and not last_name:
+    if not email or not password:
         return (
-            jsonify({"message": "You must include a id and name"}),
+            jsonify({"message": "You must include a email and password"}),
             400,
         )
     
-    new_user = User(id=id, first_name=first_name, last_name=last_name, email=email, password=password, timeCreated=timeCreated, image=image, userClass=userClass)
+    new_user = User(name=name, email=email, password=password, timeCreated=timeCreated, image=image, userClass=userClass)
     try:
         db.session.add(new_user)
         db.session.commit()
@@ -184,7 +164,7 @@ def modify_user(user_id):
 
     return jsonify({"message": "User updated."}), 200
 
-
+'''
 # Comments API
 
 @app.route("/api/comments/<int:comment_id>", methods=["POST"])
@@ -284,16 +264,13 @@ def unfollow(user_id, follower_id):
 
     return "Unfollowed successfully!"
 
-@app.route("/api/users/<string:user_id>/followers", methods=["GET"])
-def get_user_followers(user_id):
-    followers = Followers.query.filter_by(user_id=user_id).all()
-    
-    if not followers:
-        return {"message": "This user has no followers."}, 404
-    
-    return {
-        "followers": [{"follower_id": follower.follower_id, "timeCreated": follower.timeCreated} for follower in followers]
-    }
+@app.route("/api/followers/<int:follower_id>", methods=["GET"])
+
+def get_followers(follower_id):
+    followers = Followers.query.filter_by(follower_id=follower_id).all()
+
+    return jsonify({"followers": followers})
+'''
 
 if __name__ == "__main__":
     with app.app_context():

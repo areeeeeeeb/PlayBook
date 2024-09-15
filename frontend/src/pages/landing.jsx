@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-const LoginPage = () => {
-  // Placeholder for LoginPage component
-  return null;
-};
-
 export default function Landing() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -38,7 +33,6 @@ export default function Landing() {
 
   return (
     <>
-      <LoginPage />
       <div className="max-w-md mx-auto mt-10 p-6 text-white">
         <h1 className="text-3xl font-bold italic">PLAY HARD,</h1>
         <h1 className="text-3xl font-bold italic">BOOK HARD (?)</h1>

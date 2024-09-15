@@ -2,30 +2,15 @@ from config import db
 from werkzeug.security import generate_password_hash
 from sqlalchemy.orm import relationship
 import base64
-
-class Contact(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(80), unique=False, nullable=False)
-    last_name = db.Column(db.String(80), unique=False, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-
-    def to_json(self):
-        return {
-            "id": self.id,
-            "firstName": self.first_name,
-            "lastName": self.last_name,
-            "email": self.email,
-        }
     
 class User(db.Model):
     __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    uni_id = db.Column(db.String(120), unique=True, nullable=False)
+    uni_id = db.Column(db.String(120), unique=True, nullable=True)
     password = db.Column(db.String(120), unique=False, nullable=False)
-    first_name = db.Column(db.String(80), unique=False, nullable=False)
-    last_name = db.Column(db.String(80), unique=False, nullable=False)
-    creation_date = db.Column(db.DateTime, server_default=db.func.now())
+    name = db.Column(db.String(80), unique=False, nullable=True)
+    timeCreated = db.Column(db.DateTime, server_default=db.func.now())
     image = db.Column(db.LargeBinary, nullable=True)
     userClass = db.Column(db.String(80), unique=False, nullable=True)
 
@@ -39,8 +24,7 @@ class User(db.Model):
             "user_id": self.user_id,
             "email": self.email,
             "uni_id": self.uni_id,
-            "first_name": self.first_name,
-            "last_name": self.last_name,
+            "name": self.name,
             "creation_date": self.creation_date,
             "image": base64.b64encode(self.image).decode('utf-8') if self.image else None,
             "userClass": self.userClass
@@ -70,7 +54,7 @@ class Event(db.Model):
             "image": base64.b64encode(self.image).decode('utf-8') if self.image else None,
         }
     
-
+'''
 class Followers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(80), unique=False, nullable=False)
@@ -117,3 +101,6 @@ class Comments(db.Model):
 #            "location": self.location,
 #            "image": self.image,
 #        }
+
+
+'''
