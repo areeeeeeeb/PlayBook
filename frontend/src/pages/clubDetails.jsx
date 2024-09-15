@@ -22,6 +22,60 @@ const clubData = {
     description:
       "The Mathematics Society (Math Soc) is committed to enriching the academic and social lives of mathematics students through various programs and events.",
   },
+  ackse: {
+    title: "ackse",
+    id: "ackse",
+    imgURL: "https://www.akcse.ca/img/home/common/visual.jpg",
+    description:
+      "The Association of Korean-Canadian Scientists and Engineers (AKCSE) is a non-profit organization that aims to promote networking and collaboration among Korean-Canadian professionals in STEM.",
+  },
+  uwpc: {
+    title: "uwpc",
+    id: "uwpc",
+    imgURL:
+      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%3Fk%3Dcat&psig=AOvVaw1lU0tvKSBLuqRG0pI58C_p&ust=1726477369268000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNCl_ZLMxIgDFQAAAAAdAAAAABAE",
+    description:
+      "The University of Waterloo Photography Club (UWPC) is a student organization that aims to bring together photography enthusiasts and provide opportunities to develop their skills.",
+  },
+  twn: {
+    title: "twn",
+    id: "twn",
+    imgURL:
+      "https://pixabay.com/photos/european-shorthair-cat-animal-8601492/",
+    description:
+      "The Tabby Welfare Network (TWN) is a student-run organization that provides resources and support for tabby cats in need.",
+  },
+  deca: {
+    title: "deca",
+    id: "deca",
+    imgURL:
+      "https://t4.ftcdn.net/jpg/00/97/58/97/360_F_97589769_t45CqXyzjz0KXwoBZT9PRaWGHRk5hQqQ.jpg",
+    description:
+      "DECA U Waterloo is a student organization that prepares emerging leaders and entrepreneurs for careers in marketing, finance, hospitality, and management.",
+  },
+  watsam: {
+    title: "watsam",
+    id: "watsam",
+    imgURL:
+      "https://cdn.britannica.com/70/234870-050-D4D024BB/Orange-colored-cat-yawns-displaying-teeth.jpg",
+    description:
+      "The Waterloo Student Animal Management (WATSAM) club is dedicated to promoting responsible pet ownership and animal welfare.",
+  },
+  wistem: {
+    title: "wistem",
+    id: "wistem",
+    imgURL:
+      "https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=",
+    description: "WiSTEM (Women in Science, Technology, Engineering, and Math) was founded in Spring 2013 by UW students who want to promote equality in STEM disciplines.",
+  },
+  ostem: {
+    title: "ostem",
+    id: "ostem",
+    imgURL:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg",
+    description:
+      "Out in Science, Technology, Engineering, and Mathematics (oSTEM) is a student organization that aims to empower LGBTQ+ people in STEM fields.",
+  },
 };
 
 const EventWidget = ({ time, emoji, title, organizer, description }) => {
