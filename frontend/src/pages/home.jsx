@@ -7,7 +7,7 @@ const ClubWidget = ({ title, imgURL }) => {
     <Link to={`/club/${encodeURIComponent(title)}`} className="block">
       <div className="text-center">
         <img
-          className="w-32 object-fill bg-white aspect-square rounded-lg mx-auto"
+          className="w-36 object-fill bg-white aspect-square rounded-lg mx-auto"
           src={imgURL}
           alt={title}
         />
