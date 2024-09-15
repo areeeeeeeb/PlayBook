@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/home";
 import Landing from "./pages/landing";
 import Create from "./pages/create";
@@ -9,10 +9,11 @@ import Calendar from "./pages/calendar";
 import ClubDetails from "./pages/clubDetails";
 
 export default function App() {
+  const location = useLocation();
 
   return (
     <div className="bg-black h-screen">
-      <Header />
+      {location.pathname !== '/' && <Header />}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<LoginPage />} />
