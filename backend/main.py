@@ -1,7 +1,10 @@
-from flask import request, jsonify
+from flask import request, jsonify, request
 from config import app, db
 from models import Contact, Event, User, Comments, Followers
 from datetime import datetime
+from flask_uploads import UploadSet, configure_uploads, IMAGES
+import base64
+import os
 
 @app.route("/contacts", methods=["GET"])
 def get_contacts():
@@ -184,6 +187,20 @@ def modify_user(user_id):
 
     return jsonify({"message": "User updated."}), 200
 
+@app.route("/api/users/<int:user_id>/image", methods=["POST"])
+def upload_user_image(user_id):
+    user = User.query.get(user_id)
+
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+
+    image = request.files["image"]
+    image.save(os.path.join(app.config["UPLOAD_FOLDER"], image.filename))
+
+    user.image = image.read()
+    db.session.commit()
+
+    return jsonify({"message": "Image uploaded."}), 200
 
 # Comments API
 
