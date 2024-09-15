@@ -36,12 +36,12 @@ const clubs = [
   {
     title: "uwpc",
     imgURL:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%3Fk%3Dcat&psig=AOvVaw1lU0tvKSBLuqRG0pI58C_p&ust=1726477369268000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNCl_ZLMxIgDFQAAAAAdAAAAABAE",
+      "https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg",
   },
   {
     title: "twn",
     imgURL:
-      "https://pixabay.com/photos/european-shorthair-cat-animal-8601492/",
+        "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*",
   },
   {
     title: "deca",
