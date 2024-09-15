@@ -5,6 +5,9 @@ export default function Create() {
   const [user_id, setUser_id] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const startTime = "Sun, Sep 15, 9:30 AM"
+  const emoji = "⚡";
+  const image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrjEIQeiF7prHyxFkyGW2CPErhI1QXqkjbDw&s";
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -12,6 +15,9 @@ export default function Create() {
       user_id,
       title,
       description,
+      startTime,
+      emoji,
+      image,
     };
     console.log(data);
     const url = "http://127.0.0.1:5000/api/events/";
@@ -30,14 +36,14 @@ export default function Create() {
   };
 
   return (
-    <div className="flex flex-col p-4 space-y-4 rounded-lg max-w-3xl mx-auto">
+    <div className="flex flex-col p-4 space-y-4 rounded-lg max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold italic">PLAY HARD,</h1>
       <h1 className="text-3xl font-bold italic mb-4">BOOK HARD (?)</h1>
 
-      <form onSubmit={onSubmit} className="space-y-4">
+      <form onSubmit={onSubmit} className="space-y-4 w-full">
         <div className="flex p-4 space-x-2 rounded-lg">
           {/* IMAGE */}
-          <div className="w-1/3 aspect-square bg-blue-100 rounded-lg p-4" />
+          <img className="w-1/3 aspect-square bg-blue-100 rounded-lg " src={image}/>
           {/* EVENT DETAILS */}
           <div className="w-2/3">
             {/* TITLE */}
@@ -53,14 +59,14 @@ export default function Create() {
               <div className="flex items-center mb-2">
                 <Calendar className="w-5 h-5 text-gray-500 mr-2" />
                 <span className="text-gray-700">Start</span>
-                <span className="ml-auto">Sat, Sep 14</span>
-                <span className="ml-4">11:00 AM</span>
+                <span className="ml-auto">Sun, Sep 15</span>
+                <span className="ml-4">9:30 AM</span>
               </div>
               <div className="flex items-center">
                 <Calendar className="w-5 h-5 text-gray-500 mr-2" />
                 <span className="text-gray-700">End</span>
-                <span className="ml-auto">Sat, Sep 14</span>
-                <span className="ml-4">12:00 PM</span>
+                <span className="ml-auto">Sun, Sep 15</span>
+                <span className="ml-4">1:30 PM</span>
               </div>
             </div>
 
@@ -98,7 +104,7 @@ export default function Create() {
 
               <button
                 type="submit"
-                className="flex-1 bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+                className="flex-1 bg-bg-gray-600 text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
               >
                 Create Event
               </button>
