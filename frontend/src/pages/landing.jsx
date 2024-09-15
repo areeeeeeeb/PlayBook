@@ -33,7 +33,7 @@ export default function Landing() {
 
   return (
     <>
-      <div className="max-w-md mx-auto mt-10 p-6 text-white">
+      <div className="max-w-md mx-auto p-6 text-white">
         <h1 className="text-3xl font-bold italic">PLAY HARD,</h1>
         <h1 className="text-3xl font-bold italic">BOOK HARD (?)</h1>
         <form className="space-y-2 text-black" onSubmit={onSubmit}>
