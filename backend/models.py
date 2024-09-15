@@ -35,16 +35,16 @@ class Event(db.Model):
     user_id = db.Column(db.Integer, unique=True, nullable=False)
     title = db.Column(db.String(80), unique=False, nullable=False)
     description = db.Column(db.String(80), unique=False, nullable=False)
-    location = db.Column(db.String(80), unique=False, nullable=False)
-    startTime = db.Column(db.String(80), unique=False, nullable=False)
-    endTime = db.Column(db.String(80), unique=False, nullable=False)
+    location = db.Column(db.String(80), unique=False, nullable=True)
+    startTime = db.Column(db.String(80), unique=False, nullable=True)
+    endTime = db.Column(db.String(80), unique=False, nullable=True)
     timeCreated = db.Column(db.DateTime, server_default=db.func.now())
     image = db.Column(db.LargeBinary, nullable=True)
 
     def to_json(self):
         return {
             "id": self.id,
-            "userID": self.user_id,
+            "user_id": self.user_id,
             "title": self.title,
             "description": self.description,
             "location": self.location,
