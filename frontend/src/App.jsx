@@ -6,6 +6,7 @@ import LoginPage from "./pages/loginPage";
 import Discover from "./pages/discover";
 import Header from "./components/header";
 import Calendar from "./pages/calendar";
+import ClubDetails from "./pages/clubDetails";
 
 export default function App() {
 
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/create" element={<Create />} />
         <Route path="/discover" element={<Discover />} />
+        <Route path="/club/:clubTitle" element={<ClubDetails />} />
       </Routes>
     </div>
   );
