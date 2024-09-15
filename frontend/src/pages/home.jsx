@@ -1,3 +1,27 @@
+
+const ClubWidget = ({ title, imgURL }) => {
+    return (
+        <div>
+            <img className="w-40 object-fill bg-white aspect-square rounded-lg  object-fill"
+                src={imgURL}
+            />
+            <text>{title}</text>
+        </div>
+    );
+};
+
+const clubs = [
+    { 
+        title: "CSC",
+        imgURL: "https://media.licdn.com/dms/image/v2/D560BAQEzT7qXPY5mMw/company-logo_200_200/company-logo_200_200/0/1689902647768/uwcsclub_logo?e=2147483647&v=beta&t=qEyNgISeXEO4VG0gPJ9FJ7Nq-FX9oAuCRf4iCQKfCmM"
+    },
+    {
+        title: "Math Soc",
+        imgURL: "https://mathsoc.uwaterloo.ca/wp-content/uploads/2020/06/mathsoc-logo.png"
+    },
+];
+
+
 export default function Home() {
     return (
         <div className=" p-4 text-white items-center justify-start px-8">
@@ -5,32 +29,9 @@ export default function Home() {
             <div className="bg-white w-full h-0.5 mb-1"/>
 
             <div className="flex space-x-5 overscroll-x-auto items-center">
-                <div className="">
-                    <img className="w-40 object-fill aspect-square rounded-lg  object-fill"
-                        src="https://media.licdn.com/dms/image/v2/D560BAQEzT7qXPY5mMw/company-logo_200_200/company-logo_200_200/0/1689902647768/uwcsclub_logo?e=2147483647&v=beta&t=qEyNgISeXEO4VG0gPJ9FJ7Nq-FX9oAuCRf4iCQKfCmM"
-                    />
-                    <text> CSC - </text>
-                </div>
-
-                <div className="">
-                    <img className="w-40 object-fill bg-white aspect-square rounded-lg "
-                        src="https://mathsoc.uwaterloo.ca/wp-content/uploads/2020/06/mathsoc-logo.png"
-                    />
-                    <text> CSC</text>
-                </div>
-                <div className="">
-                    <img className="w-40 object-fill aspect-square rounded-lg  object-fill"
-                        src="https://media.licdn.com/dms/image/v2/D560BAQEzT7qXPY5mMw/company-logo_200_200/company-logo_200_200/0/1689902647768/uwcsclub_logo?e=2147483647&v=beta&t=qEyNgISeXEO4VG0gPJ9FJ7Nq-FX9oAuCRf4iCQKfCmM"
-                    />
-                    <text> CSC</text>
-                </div>
-                <div className="">
-                    <img className="w-40 object-fill aspect-square rounded-lg  object-fill"
-                        src="https://media.licdn.com/dms/image/v2/D560BAQEzT7qXPY5mMw/company-logo_200_200/company-logo_200_200/0/1689902647768/uwcsclub_logo?e=2147483647&v=beta&t=qEyNgISeXEO4VG0gPJ9FJ7Nq-FX9oAuCRf4iCQKfCmM"
-                    />
-                    <text> CSC</text>
-                </div>
-
+                {clubs.map((club, index) => (
+                    <ClubWidget key={index} title={club.title} imgURL={club.imgURL} />
+                ))}
             </div>
             <div className="text-3xl"> TONIGHT </div>
             <div className="bg-white w-full h-0.5 mb-1"/>
