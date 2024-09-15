@@ -5,9 +5,11 @@ export default function Create() {
   const [user_id, setUser_id] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const startTime = "Sun, Sep 15, 9:30 AM"
+  const startTime = "Sun, Sep 15, 9:30 AM";
   const emoji = "⚡";
-  const image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrjEIQeiF7prHyxFkyGW2CPErhI1QXqkjbDw&s";
+  const image =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrjEIQeiF7prHyxFkyGW2CPErhI1QXqkjbDw&s";
+  const location = "E7";
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +18,7 @@ export default function Create() {
       title,
       description,
       startTime,
+      location,
       emoji,
       image,
     };
@@ -43,7 +46,10 @@ export default function Create() {
       <form onSubmit={onSubmit} className="space-y-4 w-full">
         <div className="flex p-4 space-x-2 rounded-lg">
           {/* IMAGE */}
-          <img className="w-1/3 aspect-square bg-blue-100 rounded-lg " src={image}/>
+          <img
+            className="w-1/3 aspect-square bg-blue-100 rounded-lg "
+            src={image}
+          />
           {/* EVENT DETAILS */}
           <div className="w-2/3">
             {/* TITLE */}
