@@ -25,7 +25,8 @@ const clubData = {
   ackse: {
     title: "ackse",
     id: "ackse",
-    imgURL: "https://www.akcse.ca/img/home/common/visual.jpg",
+    imgURL:
+      "https://images.squarespace-cdn.com/content/v1/5ea4d3f4c5cdad5a2eb79812/1690156091074-1XHBYYT7RHWV7KUURQMJ/AKCSE+Logo.png",
     description:
       "The Association of Korean-Canadian Scientists and Engineers (AKCSE) is a non-profit organization that aims to promote networking and collaboration among Korean-Canadian professionals in STEM.",
   },
@@ -33,7 +34,7 @@ const clubData = {
     title: "uwpc",
     id: "uwpc",
     imgURL:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%3Fk%3Dcat&psig=AOvVaw1lU0tvKSBLuqRG0pI58C_p&ust=1726477369268000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNCl_ZLMxIgDFQAAAAAdAAAAABAE",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQTwQVIUbht1F-p_1VELnSUG2t8o1tknBHBQ&s",
     description:
       "The University of Waterloo Photography Club (UWPC) is a student organization that aims to bring together photography enthusiasts and provide opportunities to develop their skills.",
   },
@@ -41,7 +42,7 @@ const clubData = {
     title: "twn",
     id: "twn",
     imgURL:
-      "https://pixabay.com/photos/european-shorthair-cat-animal-8601492/",
+      "https://cdn.britannica.com/70/234870-050-D4D024BB/Orange-colored-cat-yawns-displaying-teeth.jpg",
     description:
       "The Tabby Welfare Network (TWN) is a student-run organization that provides resources and support for tabby cats in need.",
   },
@@ -49,7 +50,7 @@ const clubData = {
     title: "deca",
     id: "deca",
     imgURL:
-      "https://t4.ftcdn.net/jpg/00/97/58/97/360_F_97589769_t45CqXyzjz0KXwoBZT9PRaWGHRk5hQqQ.jpg",
+      "https://nmctso.com/wp-content/uploads/2022/07/DECA-Logo-Stack-Blue.jpeg",
     description:
       "DECA U Waterloo is a student organization that prepares emerging leaders and entrepreneurs for careers in marketing, finance, hospitality, and management.",
   },
@@ -57,7 +58,7 @@ const clubData = {
     title: "watsam",
     id: "watsam",
     imgURL:
-      "https://cdn.britannica.com/70/234870-050-D4D024BB/Orange-colored-cat-yawns-displaying-teeth.jpg",
+      "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*",
     description:
       "The Waterloo Student Animal Management (WATSAM) club is dedicated to promoting responsible pet ownership and animal welfare.",
   },
@@ -65,14 +66,15 @@ const clubData = {
     title: "wistem",
     id: "wistem",
     imgURL:
-      "https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=",
-    description: "WiSTEM (Women in Science, Technology, Engineering, and Math) was founded in Spring 2013 by UW students who want to promote equality in STEM disciplines.",
+      "https://thegreattransition.github.io/group062-19RNrT/assets/images/logo.jpg",
+    description:
+      "WiSTEM (Women in Science, Technology, Engineering, and Math) was founded in Spring 2013 by UW students who want to promote equality in STEM disciplines.",
   },
   ostem: {
     title: "ostem",
     id: "ostem",
     imgURL:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg",
+      "https://ostemnorthtexas.github.io/site/assets/img/oSTEM-UNT-avatar-wbg.png",
     description:
       "Out in Science, Technology, Engineering, and Mathematics (oSTEM) is a student organization that aims to empower LGBTQ+ people in STEM fields.",
   },

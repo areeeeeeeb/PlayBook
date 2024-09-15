@@ -31,40 +31,38 @@ const clubs = [
   {
     title: "ackse",
     imgURL:
-      "https://www.akcse.ca/img/home/common/visual.jpg",
+      "https://images.squarespace-cdn.com/content/v1/5ea4d3f4c5cdad5a2eb79812/1690156091074-1XHBYYT7RHWV7KUURQMJ/AKCSE+Logo.png",
   },
   {
     title: "uwpc",
     imgURL:
-      "https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQTwQVIUbht1F-p_1VELnSUG2t8o1tknBHBQ&s",
   },
   {
     title: "twn",
     imgURL:
-        "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*",
+      "https://cdn.britannica.com/70/234870-050-D4D024BB/Orange-colored-cat-yawns-displaying-teeth.jpg",
   },
   {
     title: "deca",
     imgURL:
-        "https://t4.ftcdn.net/jpg/00/97/58/97/360_F_97589769_t45CqXyzjz0KXwoBZT9PRaWGHRk5hQqQ.jpg",
+      "https://nmctso.com/wp-content/uploads/2022/07/DECA-Logo-Stack-Blue.jpeg",
   },
   {
     title: "watsam",
     imgURL:
-        "https://cdn.britannica.com/70/234870-050-D4D024BB/Orange-colored-cat-yawns-displaying-teeth.jpg",
+      "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*",
   },
   {
     title: "wistem",
     imgURL:
-        "https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=",
+      "https://thegreattransition.github.io/group062-19RNrT/assets/images/logo.jpg",
   },
   {
     title: "ostem",
     imgURL:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg",
-      
+      "https://ostemnorthtexas.github.io/site/assets/img/oSTEM-UNT-avatar-wbg.png",
   },
-
 ];
 
 const Home = () => {

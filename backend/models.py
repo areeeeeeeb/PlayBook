@@ -31,6 +31,7 @@ class User(db.Model):
         }
     
 class Event(db.Model):
+    __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, unique=False, nullable=False)
     title = db.Column(db.String(80), unique=False, nullable=False)
@@ -38,8 +39,8 @@ class Event(db.Model):
     location = db.Column(db.String(80), unique=False, nullable=True)
     startTime = db.Column(db.String(80), unique=False, nullable=True)
     endTime = db.Column(db.String(80), unique=False, nullable=True)
-    timeCreated = db.Column(db.DateTime, server_default=db.func.now())
-    image = db.Column(db.LargeBinary, nullable=True)
+    image = db.Column(db.String(200), nullable=True)
+    emoji = db.Column(db.String(200), nullable=True)
 
     def to_json(self):
         return {
@@ -50,8 +51,8 @@ class Event(db.Model):
             "location": self.location,
             "startTime": self.startTime,
             "endTime": self.endTime,
-            "timeCreated": self.timeCreated,
-            "image": base64.b64encode(self.image).decode('utf-8') if self.image else None,
+            "image": self.image,
+            "emoji": self.emoji
         }
     
 '''
