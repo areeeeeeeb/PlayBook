@@ -47,33 +47,29 @@ def current_user():
     return jsonify({'message': 'Not logged in'}), 401
 
 # Event API
-@app.route("/api/events/<int:event_id>", methods=["GET"])
-def get_event(event_id):
-    event = Event.query.get(event_id)
-
-    if not event:
-        return jsonify({"message": "Event not found"}), 404
-    
-    return jsonify({"event": event})
+@app.route("/api/events/", methods=["GET"])
+def get_event():
+    events = Event.query.all()
+    json_events = list(map(lambda x: x.to_json(), events))
+    return jsonify({"events": json_events})
 
 
-@app.route("/api/events/<int:event_id>", methods=["POST"])
+@app.route("/api/events/", methods=["POST"])
 def create_event():
-    id =  request.json.get("id")
     title = request.json.get("title")
-    user_id = request.json.get("userID")
+    user_id = request.json.get("user_id")
     description = request.json.get("description")
     location = request.json.get("location")
     startTime = request.json.get("startTime")
     endTime = request.json.get("endTime")
 
-    if not id or not user_id:
+    if not user_id:
         return (
-            jsonify({"message": "You must include a id and user_id"}),
+            jsonify({"message": "You must include user_id"}),
             400,
         )
     
-    new_event = Event(id=id, title=title, user_id=user_id, description=description, location=location, startTime=startTime, endTime=endTime)
+    new_event = Event(title=title, user_id=user_id, description=description, location=location, startTime=startTime, endTime=endTime)
     try:
         db.session.add(new_event)
         db.session.commit()
