@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Calendar, MapPin, AlignLeft, Ticket, Users } from 'lucide-react';
+import React, { useState } from "react";
+import { Calendar, MapPin, AlignLeft, Ticket, Users } from "lucide-react";
 
 export default function Create() {
   const [user_id, setUser_id] = useState("");
@@ -33,11 +33,11 @@ export default function Create() {
     <div className="flex flex-col p-4 space-y-4 rounded-lg max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold italic">PLAY HARD,</h1>
       <h1 className="text-3xl font-bold italic mb-4">BOOK HARD (?)</h1>
-      
+
       <form onSubmit={onSubmit} className="space-y-4">
         <div className="flex p-4 space-x-2 rounded-lg">
           {/* IMAGE */}
-          <div className="w-1/3 aspect-square bg-blue-100 rounded-lg p-4"/>
+          <div className="w-1/3 aspect-square bg-blue-100 rounded-lg p-4" />
           {/* EVENT DETAILS */}
           <div className="w-2/3">
             {/* TITLE */}
@@ -66,7 +66,10 @@ export default function Create() {
 
             <div className="space-y-2">
               <div>
-                <label htmlFor="userID" className="block text-sm  font-medium text-gray-500 mb-1">
+                <label
+                  htmlFor="userID"
+                  className="block text-sm  font-medium text-gray-500 mb-1"
+                >
                   User
                 </label>
                 <input
@@ -78,7 +81,10 @@ export default function Create() {
                 />
               </div>
               <div>
-                <label htmlFor="description" className="block text-sm font-medium text-gray-500 mb-1">
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium text-gray-500 mb-1"
+                >
                   Description
                 </label>
                 <input
@@ -99,8 +105,6 @@ export default function Create() {
             </div>
           </div>
         </div>
-          
-        
       </form>
     </div>
   );

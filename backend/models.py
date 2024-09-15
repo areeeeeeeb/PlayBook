@@ -9,7 +9,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     uni_id = db.Column(db.String(120), unique=True, nullable=True)
     password = db.Column(db.String(120), unique=False, nullable=False)
-    name = db.Column(db.String(80), unique=False, nullable=True)
+    name = db.Column(db.String(80), unique=False, nullable=False)
     timeCreated = db.Column(db.DateTime, server_default=db.func.now())
     image = db.Column(db.LargeBinary, nullable=True)
     userClass = db.Column(db.String(80), unique=False, nullable=True)
@@ -25,14 +25,14 @@ class User(db.Model):
             "email": self.email,
             "uni_id": self.uni_id,
             "name": self.name,
-            "creation_date": self.creation_date,
+            "timeCreated": self.timeCreated,
             "image": base64.b64encode(self.image).decode('utf-8') if self.image else None,
             "userClass": self.userClass
         }
     
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, unique=True, nullable=False)
+    user_id = db.Column(db.Integer, unique=False, nullable=False)
     title = db.Column(db.String(80), unique=False, nullable=False)
     description = db.Column(db.String(80), unique=False, nullable=False)
     location = db.Column(db.String(80), unique=False, nullable=True)

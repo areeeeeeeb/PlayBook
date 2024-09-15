@@ -54,6 +54,13 @@ def get_event():
     return jsonify({"events": json_events})
 
 
+@app.route("/api/events/<string:user_id>", methods=["GET"])
+def get_events_by_user(user_id):
+    events = Event.query.filter_by(user_id=user_id).all()
+    json_events = list(map(lambda x: x.to_json(), events))
+    return jsonify({"events": json_events})
+
+
 @app.route("/api/events/", methods=["POST"])
 def create_event():
     title = request.json.get("title")
@@ -94,8 +101,15 @@ def delete_event(event_id):
 
 #Users API
 
-@app.route("/api/users/<int:user_id>", methods=["GET"])
+@app.route("/api/users/", methods=["GET"])
+def get_all_users():
+    users = User.query.all()
+    json_users = list(map(lambda x: x.to_json(), users))
+    return jsonify({"users": json_users})
 
+
+
+@app.route("/api/users/<int:user_id>", methods=["GET"])
 def get_user(user_id):
     user = User.query.get(user_id)
 
@@ -106,7 +120,7 @@ def get_user(user_id):
 
 @app.route("/api/users/", methods=["POST"])
 def create_user():
-    name = request.json.get("first_name")
+    name = request.json.get("name")
     email = request.json.get("email")
     password = request.json.get("password")
     timeCreated = request.json.get("timeCreated")
