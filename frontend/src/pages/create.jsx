@@ -38,8 +38,9 @@ export default function Create() {
         <div className="flex p-4 space-x-2 rounded-lg">
           {/* IMAGE */}
           <div className="w-1/3 aspect-square bg-blue-100 rounded-lg p-4"/>
-          
+          {/* EVENT DETAILS */}
           <div className="w-2/3">
+            {/* TITLE */}
             <input
               type="text"
               placeholder="Event Name"
@@ -47,7 +48,7 @@ export default function Create() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            
+            {/* DATES */}
             <div className="rounded-lg p-4 mb-4 bg-white/10 text-white">
               <div className="flex items-center mb-2">
                 <Calendar className="w-5 h-5 text-gray-500 mr-2" />
@@ -62,44 +63,44 @@ export default function Create() {
                 <span className="ml-4">12:00 PM</span>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div className="space-y-2">
-          <div>
-            <label htmlFor="userID" className="block text-sm font-medium text-gray-700 mb-1">
-              UserID
-            </label>
-            <input
-              onChange={(e) => setUser_id(e.target.value)}
-              type="text"
-              id="userID"
-              placeholder="Enter your UserID"
-              className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-              Description
-            </label>
-            <input
-              onChange={(e) => setDescription(e.target.value)}
-              type="text"
-              id="description"
-              placeholder="Enter Description"
-              className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-        </div>
+            <div className="space-y-2">
+              <div>
+                <label htmlFor="userID" className="block text-sm  font-medium text-gray-500 mb-1">
+                  User
+                </label>
+                <input
+                  onChange={(e) => setUser_id(e.target.value)}
+                  type="text"
+                  id="userID"
+                  placeholder="Johnny Appleseed"
+                  className="w-full px-3 py-2 focus:outline-none placeholder-gray-700 text-white rounded-lg bg-white/10 rounded-md "
+                />
+              </div>
+              <div>
+                <label htmlFor="description" className="block text-sm font-medium text-gray-500 mb-1">
+                  Description
+                </label>
+                <input
+                  onChange={(e) => setDescription(e.target.value)}
+                  type="text"
+                  id="description"
+                  placeholder="Such a cool event."
+                  className="w-full px-3 py-2 focus:outline-none placeholder-gray-700 text-white rounded-lg bg-white/10 rounded-md"
+                />
+              </div>
 
-        <div className="flex space-x-2">
-          <button
-            type="submit"
-            className="flex-1 bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
-          >
-            Create Event
-          </button>
+              <button
+                type="submit"
+                className="flex-1 bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+              >
+                Create Event
+              </button>
+            </div>
+          </div>
         </div>
+          
+        
       </form>
     </div>
   );
