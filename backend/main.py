@@ -69,6 +69,8 @@ def create_event():
     location = request.json.get("location")
     startTime = request.json.get("startTime")
     endTime = request.json.get("endTime")
+    image = request.json.get("image")
+    emoji = request.json.get("emoji")
 
     if not user_id:
         return (
@@ -76,7 +78,7 @@ def create_event():
             400,
         )
     
-    new_event = Event(title=title, user_id=user_id, description=description, location=location, startTime=startTime, endTime=endTime)
+    new_event = Event(title=title, user_id=user_id, description=description, location=location, startTime=startTime, endTime=endTime, image=image, emoji=emoji)
     try:
         db.session.add(new_event)
         db.session.commit()
